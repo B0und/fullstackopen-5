@@ -8,6 +8,13 @@ const BlogsDisplay = ({ blogs, user, setBlogs }) => {
     setBlogs(blogs.map((b) => (b.id !== blog.id ? b : changedBlog)));
   };
 
+  const removeBlog = async (blog) => {
+    if (window.confirm(`Do you really want to delete ${blog.title}`)) {
+      await blogService.deleteBlog(blog.id);
+      setBlogs(blogs.filter((b) => b.id !== blog.id));
+    }
+  };
+
   return (
     <div>
       <h2>blogs</h2>
@@ -18,7 +25,14 @@ const BlogsDisplay = ({ blogs, user, setBlogs }) => {
           return a.likes < b.likes ? 1 : 0;
         })
         .map((blog) => {
-          return <Blog key={blog.id} blog={blog} updateLikes={updateLikes} />;
+          return (
+            <Blog
+              key={blog.id}
+              blog={blog}
+              updateLikes={updateLikes}
+              removeBlog={removeBlog}
+            />
+          );
         })}
     </div>
   );

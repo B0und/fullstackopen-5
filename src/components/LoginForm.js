@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import loginService from "../services/login";
 import blogService from "../services/blogs";
+import PropTypes from "prop-types";
 
 const LoginForm = ({ setErrorMessage, setUser }) => {
   const [username, setUsername] = useState("");
@@ -16,7 +17,7 @@ const LoginForm = ({ setErrorMessage, setUser }) => {
       });
       window.localStorage.setItem("loggedBlogUser", JSON.stringify(user));
       blogService.setToken(user.token);
-      
+
       setUser(user);
       setUsername("");
       setPassword("");
@@ -51,6 +52,11 @@ const LoginForm = ({ setErrorMessage, setUser }) => {
       <button type="submit">login</button>
     </form>
   );
+};
+
+LoginForm.propTypes = {
+  setErrorMessage: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired,
 };
 
 export default LoginForm;
