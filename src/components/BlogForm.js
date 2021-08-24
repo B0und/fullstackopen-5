@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import blogService from "../services/blogs";
 
 const BlogForm = ({ setErrorMessage, blogs, setBlogs, blogFormRef }) => {

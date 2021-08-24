@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import blogService from "../services/blogs";
 
 const Blog = ({ blog, updateLikes }) => {
   const [showMore, setShowMore] = useState(false);
@@ -15,6 +16,12 @@ const Blog = ({ blog, updateLikes }) => {
     marginBottom: 5,
   };
 
+  const removeBlog = async () => {
+    if (window.confirm(`Do you really want to delete ${blog.title}`)) {
+      await blogService.deleteBlog(blog.id);
+    }
+  };
+
   return (
     <div style={blogStyle}>
       {blog.title} {blog.author}
@@ -27,6 +34,7 @@ const Blog = ({ blog, updateLikes }) => {
             <button onClick={() => updateLikes(blog)}>like</button>
           </div>
           <div>{blog.user.name}</div>
+          <button onClick={removeBlog}>Remove</button>
         </div>
       )}
     </div>
