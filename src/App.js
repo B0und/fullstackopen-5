@@ -53,7 +53,7 @@ const App = () => {
               blogFormRef={blogFormRef}
             />
           </Togglable>
-          <BlogsDisplay blogs={blogs} user={user} />
+          <BlogsDisplay blogs={blogs} user={user} setBlogs={setBlogs} />
         </div>
       )}
     </div>
