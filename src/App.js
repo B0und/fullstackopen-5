@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from "react";
-import Blog from "./components/Blog";
+import React, { useState, useEffect, useRef } from "react";
+
 import blogService from "./services/blogs";
 import Notification from "./components/Notification";
 
 import LoginForm from "./components/LoginForm";
 import BlogForm from "./components/BlogForm";
 import Togglable from "./components/Togglable";
+import BlogsDisplay from "./components/BlogsDisplay";
 
 const App = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [user, setUser] = useState(null);
 
   const [blogs, setBlogs] = useState([]);
+  const blogFormRef = useRef();
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -43,19 +45,15 @@ const App = () => {
         <div>
           <p>{user.name} logged-in</p>
           <button onClick={logoutHandler}>Logout</button>
-          <Togglable buttonLabel="new blog">
+          <Togglable buttonLabel="new blog" ref={blogFormRef}>
             <BlogForm
               setErrorMessage={setErrorMessage}
               setBlogs={setBlogs}
               blogs={blogs}
+              blogFormRef={blogFormRef}
             />
           </Togglable>
-          <h2>blogs</h2>
-          {blogs
-            .filter((blog) => blog.user?.username === user.username)
-            .map((blog) => (
-              <Blog key={blog.id} blog={blog} />
-            ))}
+          <BlogsDisplay blogs={blogs} user={user} />
         </div>
       )}
     </div>

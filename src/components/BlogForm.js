@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import blogService from "../services/blogs";
 
-const BlogForm = ({ setErrorMessage, blogs, setBlogs }) => {
+const BlogForm = ({ setErrorMessage, blogs, setBlogs, blogFormRef }) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [url, setUrl] = useState("");
@@ -14,8 +14,10 @@ const BlogForm = ({ setErrorMessage, blogs, setBlogs }) => {
       url,
     };
 
+    blogFormRef.current.toggleVisibility();
+
     blogService.create(blogObject).then((returnedBlog) => {
-      setBlogs(blogs.concat(returnedBlog));
+      setBlogs([...blogs, blogObject]);
       setTitle("");
       setUrl("");
       setAuthor("");

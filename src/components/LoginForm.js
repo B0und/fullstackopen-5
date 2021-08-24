@@ -16,6 +16,7 @@ const LoginForm = ({ setErrorMessage, setUser }) => {
       });
       window.localStorage.setItem("loggedBlogUser", JSON.stringify(user));
       blogService.setToken(user.token);
+      
       setUser(user);
       setUsername("");
       setPassword("");
