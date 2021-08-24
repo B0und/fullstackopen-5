@@ -1,33 +1,33 @@
-import { useState } from "react";
-import blogService from "../services/blogs";
+import { useState } from 'react'
+import blogService from '../services/blogs'
 
 const BlogForm = ({ setErrorMessage, blogs, setBlogs, blogFormRef }) => {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [url, setUrl] = useState("");
+  const [title, setTitle] = useState('')
+  const [author, setAuthor] = useState('')
+  const [url, setUrl] = useState('')
 
   const addBlog = (event) => {
-    event.preventDefault();
+    event.preventDefault()
     const blogObject = {
       title,
       author,
       url,
-    };
+    }
 
-    blogFormRef.current.toggleVisibility();
+    blogFormRef.current.toggleVisibility()
 
-    blogService.create(blogObject).then((returnedBlog) => {
-      setBlogs([...blogs, blogObject]);
-      setTitle("");
-      setUrl("");
-      setAuthor("");
-    });
+    blogService.create(blogObject).then(() => {
+      setBlogs([...blogs, blogObject])
+      setTitle('')
+      setUrl('')
+      setAuthor('')
+    })
 
-    setErrorMessage(`Added blog: ${blogObject.title}`);
+    setErrorMessage(`Added blog: ${blogObject.title}`)
     setTimeout(() => {
-      setErrorMessage(null);
-    }, 5000);
-  };
+      setErrorMessage(null)
+    }, 5000)
+  }
 
   return (
     <div>
@@ -61,7 +61,7 @@ const BlogForm = ({ setErrorMessage, blogs, setBlogs, blogFormRef }) => {
       </div>
       <button onClick={addBlog}>Create a new blog</button>
     </div>
-  );
-};
+  )
+}
 
-export default BlogForm;
+export default BlogForm

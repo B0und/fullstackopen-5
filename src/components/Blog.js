@@ -1,24 +1,24 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
 const Blog = ({ blog, updateLikes, removeBlog }) => {
-  const [showMore, setShowMore] = useState(false);
+  const [showMore, setShowMore] = useState(false)
 
   const toggleShowMore = () => {
-    setShowMore(!showMore);
-  };
+    setShowMore(!showMore)
+  }
 
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
-    border: "solid",
+    border: 'solid',
     borderWidth: 1,
     marginBottom: 5,
-  };
+  }
 
   return (
     <div style={blogStyle}>
       {blog.title} {blog.author}
-      <button onClick={toggleShowMore}>{showMore ? "Hide" : "Show"}</button>
+      <button onClick={toggleShowMore}>{showMore ? 'Hide' : 'Show'}</button>
       {showMore && (
         <div>
           <div> {blog.url}</div>
@@ -31,7 +31,7 @@ const Blog = ({ blog, updateLikes, removeBlog }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Blog;
+export default Blog

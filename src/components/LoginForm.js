@@ -1,33 +1,33 @@
-import React, { useState } from "react";
-import loginService from "../services/login";
-import blogService from "../services/blogs";
-import PropTypes from "prop-types";
+import React, { useState } from 'react'
+import loginService from '../services/login'
+import blogService from '../services/blogs'
+import PropTypes from 'prop-types'
 
 const LoginForm = ({ setErrorMessage, setUser }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleLogin = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
     try {
       const user = await loginService.login({
         username,
         password,
-      });
-      window.localStorage.setItem("loggedBlogUser", JSON.stringify(user));
-      blogService.setToken(user.token);
+      })
+      window.localStorage.setItem('loggedBlogUser', JSON.stringify(user))
+      blogService.setToken(user.token)
 
-      setUser(user);
-      setUsername("");
-      setPassword("");
+      setUser(user)
+      setUsername('')
+      setPassword('')
     } catch (exception) {
-      setErrorMessage("Wrong credentials");
+      setErrorMessage('Wrong credentials')
       setTimeout(() => {
-        setErrorMessage(null);
-      }, 5000);
+        setErrorMessage(null)
+      }, 5000)
     }
-  };
+  }
 
   return (
     <form onSubmit={handleLogin}>
@@ -51,12 +51,12 @@ const LoginForm = ({ setErrorMessage, setUser }) => {
       </div>
       <button type="submit">login</button>
     </form>
-  );
-};
+  )
+}
 
 LoginForm.propTypes = {
   setErrorMessage: PropTypes.func.isRequired,
   setUser: PropTypes.func.isRequired,
-};
+}
 
-export default LoginForm;
+export default LoginForm
