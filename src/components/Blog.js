@@ -7,22 +7,28 @@ const Blog = ({ blog }) => {
     setShowMore(!showMore);
   };
 
+  const blogStyle = {
+    paddingTop: 10,
+    paddingLeft: 2,
+    border: "solid",
+    borderWidth: 1,
+    marginBottom: 5,
+  };
+
   return (
-    <div>
-      {!showMore && blog.title} {!showMore && blog.author}
+    <div style={blogStyle}>
+      {blog.title} {blog.author}
+      <button onClick={toggleShowMore}>{showMore ? "Hide" : "Show"}</button>
       {showMore && (
         <div>
-          <div> {blog.title}</div>
-          <div> {blog.author}</div>
           <div> {blog.url}</div>
           <div>
             {" "}
-            blog.likes
+            {blog.likes}
             <button>like</button>
           </div>
         </div>
       )}
-      <button onClick={toggleShowMore}>{showMore ? "Hide" : "Show"}</button>
     </div>
   );
 };
