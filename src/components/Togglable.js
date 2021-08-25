@@ -1,6 +1,7 @@
 import React, { useState, useImperativeHandle } from 'react'
 import PropTypes from 'prop-types'
 
+
 const Togglable = React.forwardRef((props, ref) => {
   const [visible, setVisible] = useState(false)
 
@@ -15,11 +16,11 @@ const Togglable = React.forwardRef((props, ref) => {
     return { toggleVisibility }
   })
   return (
-    <div>
+    <div >
       <div style={hideWhenVisible}>
         <button onClick={toggleVisibility}>{props.buttonLabel}</button>
       </div>
-      <div style={showWhenVisible}>
+      <div className="togglableContent" style={showWhenVisible}>
         {props.children}
         <button onClick={toggleVisibility}>cancel</button>
       </div>
