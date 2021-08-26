@@ -30,6 +30,24 @@ const App = () => {
     }
   }, [])
 
+  const addBlog = async (author, title, url ) => {
+    const blogObject = {
+      title,
+      author,
+      url
+    }
+
+    blogFormRef.current.toggleVisibility()
+
+    const createdBlog = await blogService.create(blogObject)
+    setBlogs([...blogs, createdBlog])
+
+    setErrorMessage(`Added blog: ${blogObject.title}`)
+    setTimeout(() => {
+      setErrorMessage(null)
+    }, 5000)
+  }
+
   const logoutHandler = () => {
     setUser(null)
     window.localStorage.removeItem('loggedBlogUser')
@@ -47,10 +65,7 @@ const App = () => {
           <button onClick={logoutHandler}>Logout</button>
           <Togglable buttonLabel="new blog" ref={blogFormRef}>
             <BlogForm
-              setErrorMessage={setErrorMessage}
-              setBlogs={setBlogs}
-              blogs={blogs}
-              blogFormRef={blogFormRef}
+              addBlog={addBlog}
             />
           </Togglable>
           <BlogsDisplay blogs={blogs} user={user} setBlogs={setBlogs} />

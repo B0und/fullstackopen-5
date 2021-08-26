@@ -1,65 +1,54 @@
 import { useState } from 'react'
-import blogService from '../services/blogs'
 
-const BlogForm = ({ setErrorMessage, blogs, setBlogs, blogFormRef }) => {
+const BlogForm = ({ addBlog }) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
 
-  const addBlog = (event) => {
+  const handleAddBlog =  (event) => {
     event.preventDefault()
-    const blogObject = {
-      title,
-      author,
-      url,
-    }
-
-    blogFormRef.current.toggleVisibility()
-
-    blogService.create(blogObject).then(() => {
-      setBlogs([...blogs, blogObject])
-      setTitle('')
-      setUrl('')
-      setAuthor('')
-    })
-
-    setErrorMessage(`Added blog: ${blogObject.title}`)
-    setTimeout(() => {
-      setErrorMessage(null)
-    }, 5000)
+    addBlog(title, author, url)
+    setTitle('')
+    setAuthor('')
+    setUrl('')
   }
 
   return (
     <div>
       <h2>Create a new Blog</h2>
-      <div>
-        title:
-        <input
-          type="text"
-          value={title}
-          name="Title"
-          onChange={({ target }) => setTitle(target.value)}
-        />
-      </div>
-      <div>
-        author:
-        <input
-          type="text"
-          value={author}
-          name="Author"
-          onChange={({ target }) => setAuthor(target.value)}
-        />
-      </div>
-      <div>
-        url:
-        <input
-          type="text"
-          value={url}
-          name="Url"
-          onChange={({ target }) => setUrl(target.value)}
-        />
-      </div>
-      <button onClick={addBlog}>Create a new blog</button>
+      <form id="form" onSubmit={handleAddBlog}>
+        <div>
+          title:
+          <input
+            id="title"
+            type="text"
+            value={title}
+            name="Title"
+            onChange={({ target }) => setTitle(target.value)}
+          />
+        </div>
+        <div>
+          author:
+          <input
+            id="author"
+            type="text"
+            value={author}
+            name="Author"
+            onChange={({ target }) => setAuthor(target.value)}
+          />
+        </div>
+        <div>
+          url:
+          <input
+            id="url"
+            type="text"
+            value={url}
+            name="Url"
+            onChange={({ target }) => setUrl(target.value)}
+          />
+        </div>
+        <button type="submit">Create a new blog</button>
+      </form>
     </div>
   )
 }
