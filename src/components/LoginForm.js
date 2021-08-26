@@ -34,6 +34,7 @@ const LoginForm = ({ setErrorMessage, setUser }) => {
       <div>
         username
         <input
+          id="username"
           type="text"
           value={username}
           name="Username"
@@ -43,6 +44,7 @@ const LoginForm = ({ setErrorMessage, setUser }) => {
       <div>
         password
         <input
+          id="password"
           type="password"
           value={password}
           name="Password"
