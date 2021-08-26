@@ -54,13 +54,20 @@ describe('Blog app', function() {
         cy.createBlog({ title: 'blog3', author: 'author3', url: 'url3' })
       })
 
-      it.only('Blog can be liked', function() {
+      it('Blog can be liked', function() {
         cy.contains('blog1').contains('Show').click()
         cy.contains('0')
         cy.contains('url1')
         cy.should('not.contain','url2')
         cy.contains('like').click()
         cy.contains('1')
+      })
+
+      it.only('Blog can be deleted', function() {
+        cy.contains('blog1').contains('Show').click()
+        cy.contains('url1')
+        cy.contains('Remove').click()
+        cy.should('not.contain','blog1')
       })
     })
   })
