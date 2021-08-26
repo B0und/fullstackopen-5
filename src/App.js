@@ -15,8 +15,9 @@ const App = () => {
   const [blogs, setBlogs] = useState([])
   const blogFormRef = useRef()
 
-  useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs))
+  useEffect(async () => {
+    const serverBlogs = await blogService.getAll()
+    setBlogs(serverBlogs)
   }, [])
 
   useEffect(() => {
@@ -26,11 +27,13 @@ const App = () => {
       setUser(user)
       if (user !== null) {
         blogService.setToken(user.token)
+
       }
     }
   }, [])
 
-  const addBlog = async (author, title, url ) => {
+
+  const addBlog = async (author, title, url) => {
     const blogObject = {
       title,
       author,
@@ -39,8 +42,9 @@ const App = () => {
 
     blogFormRef.current.toggleVisibility()
 
-    const createdBlog = await blogService.create(blogObject)
-    setBlogs([...blogs, createdBlog])
+    let createdBlog = await blogService.create(blogObject)
+    createdBlog.user = user
+    setBlogs((prevState) => [...prevState, createdBlog])
 
     setErrorMessage(`Added blog: ${blogObject.title}`)
     setTimeout(() => {
@@ -64,9 +68,7 @@ const App = () => {
           <p>{user.name} logged-in</p>
           <button onClick={logoutHandler}>Logout</button>
           <Togglable buttonLabel="new blog" ref={blogFormRef}>
-            <BlogForm
-              addBlog={addBlog}
-            />
+            <BlogForm addBlog={addBlog} />
           </Togglable>
           <BlogsDisplay blogs={blogs} user={user} setBlogs={setBlogs} />
         </div>

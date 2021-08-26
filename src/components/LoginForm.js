@@ -19,10 +19,11 @@ const LoginForm = ({ setErrorMessage, setUser }) => {
       blogService.setToken(user.token)
 
       setUser(user)
-      setUsername('')
-      setPassword('')
+
     } catch (exception) {
       setErrorMessage('Wrong credentials')
+      setUsername('')
+      setPassword('')
       setTimeout(() => {
         setErrorMessage(null)
       }, 5000)
